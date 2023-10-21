@@ -1,3 +1,7 @@
 const prompt = require('prompt-sync')({sigint: true});
-const inputStr = prompt('enter string to be encoded: ');
-console.log(encodeURIComponent(inputStr));
+
+while (true) {
+    const inputStr = prompt('enter string to be encoded(Q/q to exit): ');
+    if (inputStr.toLowerCase() === 'q') { break; }
+    console.log(encodeURIComponent(inputStr));
+}
