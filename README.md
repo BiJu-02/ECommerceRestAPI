@@ -23,3 +23,7 @@ git clone https://github.com/BiJu-02/UnityLabsInternAssignment.git
 npm i
 node index
 ```
+
+#### For a better understanding of how to use the APIs, please refer to the API_ref.txt document.
+<br><br>
+Please do provide feedback on the project.

@@ -1,19 +1,129 @@
+## Some common response body fields ##
+{
+    message: string,    // for error or success messages
+    newToken: string    // This token is mainly sent by login API, it to be used as bearer token for all the buyer/seller APIs
+}
+
+Note: Sometimes the buyer/seller APIs might also send the newToken field in their response body.
+        It is because the secret key used to generate these tokens are changed every 2 Hrs.
+        The current secret key is stored in a prevSecretKey variable and the current one is assigned the newly generated one.
+        This way it is guaranteed that the user will not be able to use the APIs after 4 Hrs. until the user logins again.
+        It also guarantees that the user will be able to be inactive (not make API calls) for at least 2 Hrs. before the token expires.
+
+        Always check for the newToken field in responses and keep the token on client's side updated.
+
+
 1. Register
+    POST /api/auth/register
+    request-body:
+    {
+        userName: string,
+        password: string,
+        userType: string('buyer' || 'seller')
+    }
 
 
 2. Login
+    POST /api/auth/login
+    request-body:
+    {
+        userName: string,
+        password: string
+    }
 
+
+
+## For all the APIs below the 'Authorization' header needs to be assigned 'Bearer <token>' or just '<token>' ##
 
 3. Create catalog (Seller)
+    POST /api/seller/create-catalog
+    request-body:
+    {
+        productList: [
+            {
+                name: string
+                price: number
+            },
+            ... 
+        ]   // productList must be an array containing objects like described
+    }
+    
 
 
 4. Create order (Buyer)
+    POST api/buyer/create-order/:seller_id  // seller_id must be a valid id returned in seller-catalog endpoint
+    request-body:
+    {
+        productList: [
+            string,
+            ...
+        ]   // productList must be an array containing strings, which are names of the products
+    }
+
 
 
 5. Get Seller List (Buyer)
+    GET api/buyer/list-of-seller
+    response-body:
+    {
+        sellerList: [
+            {
+                _id: string,    // seller id
+                uName: string   // seller username
+            },
+            ...
+        ],
+
+    }
+
 
 
 6. Get Order List (Seller)
+    GET api/seller/orders
+    response-body:
+    {
+        ordersList: [
+            {
+                oBuyerId: string,   // buyer id
+                oProductList: [
+                    string,
+                    ...
+                ]   // list of product names
+            },
+            ...
+        ],   // list of orders to the seller that called the API.
+
+    }
+
 
 
 7. Get Catalog with Seller ID (Buyer)
+    response-body: 
+    {
+        catalog: {
+            cSellerId: string,
+            cProductList: [
+                {
+                    "name": "prod3",
+                    "price": 10
+                },
+                ...
+            ]
+        },
+
+    }
+
+
+
+## Some common error responses ##
+status(400): {
+    message: 'invalid parameters/users'
+} // check if the parameters are correct and correct type of user account is trying to access the particular API.
+
+status(500): {
+    message: 'Server error'
+} // check the console for error...and provide the feedback to this poor developer ;-;
+
+status(500): {
+    message: 'Silent server error'
+} // most likely some data got misplaced in database manually.

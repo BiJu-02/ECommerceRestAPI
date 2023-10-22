@@ -11,7 +11,10 @@ module.exports = require('express').Router().get('/buyer/seller-catalog/:seller_
     respObj = {}
     if (validGetCatalogParam(req)) {
         const catalogsCollection = db.collection('catalogs');
-        const dbRes = await catalogsCollection.findOne({cSellerId: req.params['seller_id']});
+        const dbRes = await catalogsCollection.findOne(
+                                                {cSellerId: req.params['seller_id']}, 
+                                                {projection: {_id: 0, cSellerId: 1, cProductList: 1, _id: 0}}
+        );
         if (dbRes) {
             respObj.catalog = dbRes;
         } else {
@@ -23,7 +26,7 @@ module.exports = require('express').Router().get('/buyer/seller-catalog/:seller_
         respObj.message = 'Invalid user or parameters';
     }
 
-    if (!req.usingCurrToken) {
+    if (!req.usingCurrKey) {
         respObj.newToken = authUtil.genToken(req.user.userName, req.user.userType);
     }
     res.send(respObj);

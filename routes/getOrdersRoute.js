@@ -10,7 +10,9 @@ module.exports = require('express').Router().get('/seller/orders', async (req, r
         const usersCollection = db.collection('users');
         const dbRes1 = await usersCollection.findOne({uName: req.user.userName});
         if (dbRes1) {
-            const dbRes2 = await ordersCollection.find({oSellerId: dbRes1._id.toString()}).toArray();
+            const dbRes2 = await ordersCollection.find({oSellerId: dbRes1._id.toString()})
+                                                    .project({_id: 0, oBuyerId: 1, oProductList: 1})
+                                                    .toArray();
             respObj.ordersList = dbRes2;
         } else {
             res.status(500);
@@ -25,7 +27,7 @@ module.exports = require('express').Router().get('/seller/orders', async (req, r
         res.status(400);
         respObj.message = 'This endpoint is for sellers only';
     }
-    if (!req.usingCurrToken) {
+    if (!req.usingCurrKey) {
         respObj.newToken = authUtil.genToken(req.user.userName, req.user.userType);
     }
     res.send(respObj);

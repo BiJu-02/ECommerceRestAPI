@@ -16,9 +16,11 @@ module.exports = require('express').Router().post('/auth/login', async (req, res
                 respObj.newToken = authUtil.genToken(dbRes.uName, dbRes.uType);
                 respObj.message = 'Login successful';
             } else {
+                res.status(400);
                 respObj.message = 'Incorrect password';
             }
         } else {
+            res.status(400);
             respObj.message = 'User not found';
         }
     } else {

@@ -9,15 +9,14 @@ module.exports = require('express').Router().get('/buyer/list-of-seller', async 
         try {
             const usersCollection = db.collection('users');
             const dbRes = await usersCollection.find({uType: 'seller'})
-            .project({_id: 1, uName: 1})
-            .toArray();
+                                                .project({_id: 1, uName: 1})
+                                                .toArray();
             if (dbRes) {
                 respObj.sellerList = dbRes;
             } else {
                 res.status(500);
                 respObj.message = 'Silent status error';
             }
-            console.log(dbRes);
             respObj.message = 'work in progress';
         } catch (err) {
             console.log(err);
@@ -29,7 +28,7 @@ module.exports = require('express').Router().get('/buyer/list-of-seller', async 
         respObj.message = 'This endpoint is for buyers only';
     }
 
-    if (!req.usingCurrToken) {
+    if (!req.usingCurrKey) {
         respObj.newToken = authUtil.genToken(req.user.userName, req.user.userType);
     }
     res.send(respObj);

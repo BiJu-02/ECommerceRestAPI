@@ -9,11 +9,12 @@ const validCreateCatalogParam = (req) => {
     req.body.productList.every((product) => {
         const productKeys = Object.keys(product);
             return expectedKeys.length === productKeys.length &&
+                typeof(product['name']) === 'string' && 
+                typeof(product['price']) == 'number' &&
                 expectedKeys.every((key) => {
                     return productKeys.includes(key)
                 });
     })
-    console.log(new Set(req.body.productList.map(product => product.name)).size);
     return flag;
 }
 
@@ -56,7 +57,7 @@ module.exports = require('express').Router().post('/seller/create-catalog', asyn
         res.status(400);
         respObj.message = 'Invalid parameters/user';
     }
-    if (!req.usingCurrToken) {
+    if (!req.usingCurrKey) {
         respObj.newToken = authUtil.genToken(req.user.userName, req.user.userType);
     }
     res.send(respObj);

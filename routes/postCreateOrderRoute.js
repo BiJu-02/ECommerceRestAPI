@@ -61,7 +61,7 @@ module.exports = require('express').Router().post('/buyer/create-order/:seller_i
         res.status(400);
         respObj.message = 'Invalid parameters/user';
     }
-    if (!req.usingCurrToken) {
+    if (!req.usingCurrKey) {
         respObj.newToken = authUtil.genToken(req.user.userName, req.user.userType);
     }
     res.send(respObj);
