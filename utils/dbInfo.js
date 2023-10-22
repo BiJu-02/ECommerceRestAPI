@@ -1,5 +1,5 @@
 module.exports = {
-    collectionNames: ['users', 'catalogs', 'products', 'orders'],
+    collectionNames: ['users', 'catalogs', 'orders'],
     dbName: 'ecom'
 };
 

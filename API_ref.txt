@@ -1,0 +1,19 @@
+1. Register
+
+
+2. Login
+
+
+3. Create catalog (Seller)
+
+
+4. Create order (Buyer)
+
+
+5. Get Seller List (Buyer)
+
+
+6. Get Order List (Seller)
+
+
+7. Get Catalog with Seller ID (Buyer)

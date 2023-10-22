@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const genRand = () => { return crypto.randomBytes(32).toString('hex'); }
 
+
 let currSecretKey = genRand();
 let prevSecretKey = genRand();
 
@@ -18,14 +19,12 @@ const rotateKeys = () => {
     console.log('curr key changed to: ', currSecretKey);
 }
 
-const genToken = (userName) => {
-    return jwt.sign({userName}, currSecretKey, {expiresIn: '3h'});
+const genToken = (userName, userType) => {
+    return jwt.sign({userName, userType}, currSecretKey, {expiresIn: '3h'});
 }
 
 const authToken = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
-
-    console.log('request token: ', token);
     if (!token) {
         res.status(400).send({message: 'Unauthorized'});
     }
