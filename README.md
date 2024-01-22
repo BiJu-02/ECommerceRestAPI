@@ -1,4 +1,4 @@
-# UnityLabs Intern Assignment: NodeJS REST API for e-commerce marketplace
+# NodeJS REST API for e-commerce marketplace
 
 ## Before running the program
 1. Create a mongodb cluster and get its Connection URI.<br>
