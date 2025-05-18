@@ -24,6 +24,21 @@ npm i
 node index
 ```
 
+## API Endpoints
+
+### Health Check
+```
+GET /api/health
+```
+Returns a status indicating if the API is healthy.
+
+Response:
+```json
+{
+  "status": "healthy"
+}
+```
+
 #### For a better understanding of how to use the APIs, please refer to the API_ref.txt document.
 <br><br>
 Please do provide feedback on the project.
