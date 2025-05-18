@@ -4,7 +4,8 @@
   "description": "REST API endpoints for e-commerce marketplace",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:health": "node test-health-check.js"
   },
   "repository": {
     "type": "git",

@@ -32,10 +32,17 @@ Note: Sometimes the buyer/seller APIs might also send the newToken field in thei
     }
 
 
+3. Health Check
+    GET /api/health
+    response-body:
+    {
+        status: 'healthy'    // Indicates the API is functioning correctly
+    }
+
 
 ## For all the APIs below the 'Authorization' header needs to be assigned 'Bearer <token>' or just '<token>' ##
 
-3. Create catalog (Seller)
+4. Create catalog (Seller)
     POST /api/seller/create-catalog
     request-body:
     {
@@ -50,7 +57,7 @@ Note: Sometimes the buyer/seller APIs might also send the newToken field in thei
     
 
 
-4. Create order (Buyer)
+5. Create order (Buyer)
     POST api/buyer/create-order/:seller_id  // seller_id must be a valid id returned in seller-catalog endpoint
     request-body:
     {
@@ -62,7 +69,7 @@ Note: Sometimes the buyer/seller APIs might also send the newToken field in thei
 
 
 
-5. Get Seller List (Buyer)
+6. Get Seller List (Buyer)
     GET api/buyer/list-of-seller
     response-body:
     {
@@ -78,7 +85,7 @@ Note: Sometimes the buyer/seller APIs might also send the newToken field in thei
 
 
 
-6. Get Order List (Seller)
+7. Get Order List (Seller)
     GET api/seller/orders
     response-body:
     {
@@ -97,7 +104,7 @@ Note: Sometimes the buyer/seller APIs might also send the newToken field in thei
 
 
 
-7. Get Catalog with Seller ID (Buyer)
+8. Get Catalog with Seller ID (Buyer)
     response-body: 
     {
         catalog: {
